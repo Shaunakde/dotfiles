@@ -35,7 +35,7 @@ nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
 
 " Basic Settings {{{
         set backspace=indent,eol,start " make backspace a more flexible
-        set backupdir=~/.vim/backup/,~/vimfiles/backup/ " where to put backup files
+        set backupdir=~/.vim/backup/ " where to put backup files
         set backup " make backup files
         set belloff=all " no noises!
         set breakindent " this is just awesome (best patch in a long time)
@@ -44,7 +44,7 @@ nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
         set complete=.,w,b,u,U,i,t " complete options
         set conceallevel=0 " Don't hide from me!
         set diffopt=vertical,filler,iwhite " filler and whitespace
-        set directory=~/.vim/temp/,~/vimfiles/temp/ " directory to place swap files in
+        set directory=~/.vim/temp/ " directory to place swap files in
         set expandtab " no real tabs please!
         set exrc " source .vimrc _vimrc .exrc _exrc files in local tree (deepest found rules all)
         set fileencoding=utf-8 " UTF-8
@@ -198,6 +198,12 @@ nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
                         set ttymouse=sgr
                 endif
         endif
+" }}}
+
+" Theme and Colors {{{
+        colorscheme desert
+        syntax on
+        set background=dark
 " }}}
 
 " vim: foldmethod=marker:sw=8:
