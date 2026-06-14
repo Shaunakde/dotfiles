@@ -1,0 +1,20 @@
+#highlight EndOfBuffer ctermbg=NONE guibg=NONE ---------------------------
+#           Themes 
+# ---------------------------
+
+# Interesting Themes:
+# - Ultra Dark
+# - Tomorrow Night Bright
+# - Liquid Carbon Transparent
+# - Pro
+theme = Liquid Carbon Transparent
+#theme = Tomorrow Night Bright
+
+# Transparency (0.0 is fully transparent, 1.0 is fully opaque)
+background-opacity = 0.85
+
+# Blur radius (Higher numbers = more blur)
+background-blur-radius = 20
+
+# Turn off auto-updates - let brew manage everything
+auto-update = off
