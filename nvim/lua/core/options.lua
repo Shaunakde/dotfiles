@@ -1,8 +1,8 @@
 -- ------------------------
 -- --[ VIM Opts Section ]--
 -- ------------------------
---vim.cmd.colorscheme('retrobox')
-vim.cmd.colorscheme('habamax')
+vim.cmd.colorscheme('wildcharm')
+-- vim.cmd.colorscheme('habamax')
 
 -- Make line numbers default
 vim.o.number = true

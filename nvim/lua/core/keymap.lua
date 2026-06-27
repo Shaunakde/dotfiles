@@ -25,6 +25,9 @@ nmap_leader('bs', new_scratch_buffer,                            'Scratch')
 nmap_leader('bw', '<Cmd>lua MiniBufremove.wipeout()<CR>',        'Wipeout')
 nmap_leader('bW', '<Cmd>lua MiniBufremove.wipeout(0, true)<CR>', 'Wipeout!')
 
+-- w is for 'Write'. ':update' writes only when the buffer is modified.
+nmap_leader('w',  '<Cmd>update<CR>',                             'Write (save if changed)')
+
 -- e is for 'Explore' and 'Edit'. Common usage:
 -- - `<Leader>ed` - open explorer at current working directory
 -- - `<Leader>ef` - open directory of current file (needs to be present on disk)
@@ -64,30 +67,25 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- Navigate buffers using Shift + j/k
-vim.keymap.set('n', '<s-j>', ':bnext<CR>', { silent = true, desc="Switch to next buffer" })
-vim.keymap.set('n', '<S-k>', ':bprevious<CR>', { silent = true, desc="Switch to next buffer"})
+-- Buffer navigation with Shift+H / Shift+L.
+-- NOTE: this overrides Neovim's default screen-motion keys:
+--   H = jump to the top (High) line of the visible window
+--   L = jump to the bottom (Low) line of the visible window
+-- (M = middle line is left untouched.) These motions are rarely used; gg/G,
+-- <C-d>/<C-u>, and zt/zz/zb cover the same ground.
+nmap('H', '<Cmd>bprevious<CR>', 'Previous buffer')
+nmap('L', '<Cmd>bnext<CR>',     'Next buffer')
 
 -- Use jk like Escape
 -- TODO: Make this work!
 -- vim.keymap.set('n', 'jk', '<Esc>', { noremap = true, silent = true })
 
--- See `:help telescope.builtin`
-local M = require('mini.pick')
-local extras = require('mini.extra')
-
--- Basic file finding
--- Git files (requires mini.extras for 'git')
--- vim.keymap.set('n', '<leader>fg', extras.git.files, { desc = 'Git Files' })
--- Live grep (requires mini.extras)
-vim.keymap.set('n', '<leader>fg', M.builtin.grep_live, { desc = 'Live Grep' })
-
--- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
--- vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-vim.keymap.set('n', '<leader>ff', M.builtin.files, { desc = '[S]earch [F]iles' })
--- vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
--- vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+-- Basic file finding (mini.pick) — wrapped so MiniPick is resolved at call time
+vim.keymap.set('n', '<leader>ff', function() MiniPick.builtin.files()     end, { desc = '[F]ind [F]iles' })
+vim.keymap.set('n', '<leader>fg', function() MiniPick.builtin.grep_live() end, { desc = '[F]ind by [G]rep' })
+vim.keymap.set('n', '<leader>fb', function() MiniPick.builtin.buffers()   end, { desc = '[F]ind [B]uffers' })
+vim.keymap.set('n', '<leader>fh', function() MiniPick.builtin.help()      end, { desc = '[F]ind [H]elp' })
+vim.keymap.set('n', '<leader>fr', function() MiniPick.builtin.resume()    end, { desc = '[F]ind [R]esume' })
 -- vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 -- vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
 -- vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })

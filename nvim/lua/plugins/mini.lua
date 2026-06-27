@@ -1,19 +1,16 @@
 return {
     'https://github.com/nvim-mini/mini.nvim',
-    init = function()
+    config = function()
 
-	-- Better Around/Inside textobjects
-	require('mini.ai').setup(
-            { n_lines = 500 }
-        )
- 
-    require('mini.comment').setup()
+    -- Better Around/Inside textobjects
+    require('mini.ai').setup({ n_lines = 500 })
 
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     -- require('mini.surround').setup() -- requires giving up s
-    require('mini.statusline').setup(
-        {use_icons = true}
-    )
+    require('mini.statusline').setup({ use_icons = true })
+
+    -- Show opened buffers across the top (uses mini.icons for filetype icons)
+    require('mini.tabline').setup()
 
     require('mini.pick').setup()
     require('mini.extra').setup()
@@ -44,18 +41,17 @@ return {
 
     require("mini.cursorword").setup()
     vim.api.nvim_set_hl(0, "MiniCursorword", { underline = true })
-    vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { underline = false, bg = NONE })
+    vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { underline = false })
 
     require("mini.diff").setup({
       view = {
         style = "sign",
-        signs = { add = "█", change = "▒", delete = "" },
+        signs = { add = "█", change = "▒", delete = "" },
       },
     })
 
     require("mini.doc").setup()
     require("mini.git").setup()
-    require("mini.extra").setup()
 
     require("mini.files").setup({
       mappings = {
@@ -69,7 +65,6 @@ return {
     })
 
     require("mini.fuzzy").setup()
-    require("mini.git").setup()
 
     require("mini.icons").setup()
 
